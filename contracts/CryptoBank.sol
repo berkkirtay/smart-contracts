@@ -15,7 +15,7 @@ contract CryptoBank {
      * to:  0xd2d656253b91c5915cafdcd8b3a5249950739e10 : receiver
      */
     function send(address receiver, uint256 amount) public {
-        require(owner.balance >= amount);
+        require(balances[owner] >= amount); // InsufficientBalance(amount, balances[owner])
 
         balances[msg.sender] -= amount;
         balances[receiver] += amount;

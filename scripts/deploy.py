@@ -38,12 +38,12 @@ class Contract:
 def main():
     contract = Contract()
     user1 = "0x128cf4716F521CbC7331c882977EAE8f7E4c4c53"
-    print(
-        f"your balance: {contract.getBalance(contract.account)} at {datetime.now}")
     contract.deposit(5000)
-    for i in range(5):
+    print(
+        f"your balance: {contract.getBalance(contract.account)} at {datetime.now()}")
+    for i in range(2):
         contract.sendTokens(user1, 1000)
 
-    print(f"user1's balance: {contract.getBalance(user1)} at {datetime.now}")
+    print(f"user1's balance: {contract.getBalance(user1)} at {datetime.now()}")
     print(
-        f"your balance: {contract.getBalance(contract.account)} at {datetime.now}")
+        f"your balance: {contract.getBalance(contract.account)} at {datetime.now()}")
