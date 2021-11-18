@@ -1,1 +1,3 @@
 dotenv: .env
+
+# You can set accounts by changing env values.

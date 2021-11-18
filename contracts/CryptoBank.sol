@@ -10,12 +10,19 @@ contract CryptoBank {
         owner = payable(msg.sender);
     }
 
+    // receive() external payable {}
+
     /*
+     * Transaction is processed withing cryptoBank.
      * From: 0x23bc92ca3d8dd080dd65914e40bad5a5bec93769 : owner
      * to:  0xd2d656253b91c5915cafdcd8b3a5249950739e10 : receiver
      */
+
     function send(address receiver, uint256 amount) public {
-        require(balances[owner] >= amount); // InsufficientBalance(amount, balances[owner])
+        require(
+            balances[owner] >= amount,
+            "You don't have enough funds to send!"
+        );
 
         balances[msg.sender] -= amount;
         balances[receiver] += amount;
@@ -32,18 +39,27 @@ contract CryptoBank {
         emit Deposit(msg.sender, amount);
     }
 
+    // A conversion rate between ETH and banks currency can be included.
+    // But for now, I assume bank's currency is in ETH.
+
     function depositWithETH() public payable {
-        // A conversion rate between ETH and banks currency can be included.
-        balances[msg.sender] += msg.value / 10000;
+        require(msg.value > 1, "Deposit amount must be more than 1 wei!");
+
+        uint256 depositedAmount = msg.value;
+        balances[msg.sender] += depositedAmount;
+
         emit Deposit(msg.sender, msg.value);
     }
 
     function withdraw() public payable {
-        require(msg.sender == owner);
+        require(
+            balances[msg.sender] != 0,
+            "You don't have any funds in your bank account!"
+        );
 
-        uint256 totalAmount = balances[owner];
-        owner.transfer(totalAmount);
-        balances[owner] = 0;
+        uint256 totalAmount = balances[msg.sender];
+        payable(msg.sender).transfer(totalAmount);
+        balances[msg.sender] = 0;
 
         emit Withdraw(msg.sender, totalAmount);
     }
