@@ -1,16 +1,6 @@
-from brownie import accounts, CryptoBank
-import os
+from brownie import CryptoBank
+from scripts.getAccountCredential import getAccount
 from datetime import datetime
-
-
-def getAccount(walletIndex: int):
-    returnName = ''
-    if walletIndex == 0:
-        returnName = "PRIVATE_KEY_LOCAL1"
-    else:
-        returnName = "PRIVATE_KEY_LOCAL2"
-    return accounts.add(os.getenv(returnName))
-
 
 class Contract:
     def __init__(self):
@@ -41,26 +31,21 @@ class Contract:
 
 contract = Contract()
 
-
 def depositToBankWithAcount1():
     user1 = getAccount(1)
     contract.setCurrentUser(getAccount(0))
-    contract.deposit(5000000000000000000)  # 5 ETH
-    print(
-        f"your balance: {contract.getBalance(contract.currentAccount)} at {datetime.now()}")
 
+    contract.deposit(5000000000000000000)  # 5 ETH
     contract.sendTokens(user1, 5000000000000000000)
 
     print(f"user1's balance: {contract.getBalance(user1)} at {datetime.now()}")
     print(
         f"your balance: {contract.getBalance(contract.currentAccount)} at {datetime.now()}")
 
-
 def withdrawFromBankWithAccount2():
     contract.setCurrentUser(getAccount(1))
     contract.withdraw()
     print("User1 withdrawed his funds from his bank account.")
-
 
 def main():
     depositToBankWithAcount1()

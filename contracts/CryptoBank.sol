@@ -1,5 +1,8 @@
 // SPDX-License-Identifier: MIT
 
+// Simple bank; peers can exchange their ETH with bank tokens.
+// They can send their tokens to other peers through the contract. 
+
 pragma solidity ^0.8.0;
 
 contract CryptoBank {
@@ -51,7 +54,7 @@ contract CryptoBank {
         emit Deposit(msg.sender, msg.value);
     }
 
-    function withdraw() public payable {
+    function withdraw() public {
         require(
             balances[msg.sender] != 0,
             "You don't have any funds in your bank account!"

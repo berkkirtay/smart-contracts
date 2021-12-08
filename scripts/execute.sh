@@ -1,6 +1,6 @@
 
 # Get a list of networks:
-# brownie networks list
+brownie networks list
 
 # Compile the specified contract:
 brownie compile .\contracts\CryptoBank.sol  
