@@ -1,8 +1,8 @@
-### Basic Smart Contracts
+# Basic Smart Contracts
 
 ## Available contracts
 - CryptoBank
-- CryptoStaking:
+- CryptoStaking
 
 ## Usage 
 - Brownie framework is being used to test contracts.
